@@ -20,7 +20,12 @@ library
       Data.Prob,
       Data.RandSupply,
       Data.RandSupply.Mersenne
+      Data.LexSet,
+      Data.RandSupply.Set
   ghc-options:	       -O
   -- other-modules:       
-  build-depends:       base ==4.6.*, monad-mersenne-random ==0.1.*
+  build-depends:
+      base >= 4.6,
+      monad-mersenne-random >= 0.1,
+      mersenne-random-pure64 >= 0.2
   hs-source-dirs:      src
