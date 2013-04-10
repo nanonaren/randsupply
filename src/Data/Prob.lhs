@@ -9,12 +9,13 @@ TODO: use MagicHash later to work with some unboxed stuff...
 module Data.Prob
     (
       Prob
+    , unProb
     , mkProb
     -- ** Unsafe functions
     , mkProbUnsafe
     ) where
 
-newtype Prob = Prob Double
+newtype Prob = Prob {unProb :: Double}
     deriving (Show,Ord,Eq)
 
 {-# INLINE mkProb #-}
