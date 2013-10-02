@@ -20,6 +20,7 @@ library
       Data.Prob,
       Data.RandSupply,
       Data.RandSupply.Mersenne
+      Data.RandSupply.Randable
       Data.LexSet,
       Data.RandSupply.Set
   ghc-options:	       -O
@@ -28,5 +29,7 @@ library
       base >= 4.6,
       monad-mersenne-random >= 0.1,
       mersenne-random-pure64 >= 0.2,
-      vector >= 0.10
+      vector >= 0.10,
+      mwc-random,
+      transformers
   hs-source-dirs:      src
