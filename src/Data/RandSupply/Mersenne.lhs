@@ -10,6 +10,7 @@ module Data.RandSupply.Mersenne
     ) where
 
 import Data.RandSupply
+import Control.Monad (liftM)
 import Control.Monad.Mersenne.Random
 import System.Random.Mersenne.Pure64
 
@@ -19,5 +20,8 @@ instance RandSupply Rand where
     -- | Not sure range requirement is satisfied
     randProb = getDouble >>= return.mkProbUnsafe
     randInt = getInt
+
+instance Functor Rand where
+    fmap f m = liftM f m
 
 \end{code}

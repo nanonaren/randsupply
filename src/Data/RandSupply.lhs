@@ -25,7 +25,7 @@ import Control.Monad (replicateM)
 import qualified Data.Vector.Unboxed.Mutable as MU
 import qualified Data.Vector.Unboxed as U
 
-class Monad m => RandSupply m where
+class (Functor m,Monad m) => RandSupply m where
     -- | Random in one of the ranges: [0,1], (0,1], [0,1) or (0,1)
     --   I may make the range requirement exact later
     randProb :: m Prob

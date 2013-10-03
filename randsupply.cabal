@@ -31,5 +31,6 @@ library
       mersenne-random-pure64 >= 0.2,
       vector >= 0.10,
       mwc-random,
-      transformers
+      transformers,
+      mtl
   hs-source-dirs:      src
