@@ -20,6 +20,7 @@ instance RandSupply Rand where
     -- | Not sure range requirement is satisfied
     randProb = getDouble >>= return.mkProbUnsafe
     randInt = getInt
+    randGamma = error "Rand: randGamma not implemented"
 
 instance Functor Rand where
     fmap f m = liftM f m

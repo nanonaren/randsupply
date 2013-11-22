@@ -9,6 +9,7 @@ Naren Sundar
 
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE FlexibleContexts #-}
 
 module Data.RandSupply
     (
@@ -16,20 +17,24 @@ module Data.RandSupply
     , coinFlip
     , randIntR
     , sampleWR
+    , fromDirichletU
     -- ** Re-imports
     , module Data.Prob
     ) where
 
 import Data.Prob
+import Control.Applicative ((<$>))
 import Control.Monad (replicateM)
 import qualified Data.Vector.Unboxed.Mutable as MU
 import qualified Data.Vector.Unboxed as U
+import qualified Data.Vector.Generic as G
 
 class (Functor m,Monad m) => RandSupply m where
     -- | Random in one of the ranges: [0,1], (0,1], [0,1) or (0,1)
     --   I may make the range requirement exact later
     randProb :: m Prob
     randInt :: m Int
+    randGamma :: Double -> Double -> m Double
 
 \end{code}
 
@@ -58,5 +63,22 @@ sampleWR n k
             let i = off + (r `mod` sz)
             MU.unsafeSwap v i off
             loop v (off+1) (sz-1) rs
+
+\end{code}
+
+Sample from a Dirichlet with a uniform parameter
+
+\begin{code}
+
+fromDirichletU :: RandSupply m => Int -> Double -> m (U.Vector Double)
+fromDirichletU n alpha =
+  normalize <$> U.replicateM n (randGamma alpha 1)
+
+-- | use this from the VectorUtils package instead
+normalize :: G.Vector v Double => v Double -> v Double
+normalize v = let s = G.sum v
+              in if s == 0
+                 then error "normalize: total is zero"
+                 else G.map (/s) v
 
 \end{code}
